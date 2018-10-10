@@ -25,6 +25,7 @@
         "electron-build": "npm run build && electron ."
     },
     "devDependencies": {
+        "electron": "^3.0.3",
         "redux-devtools": "^3.4.1"
     }
 }

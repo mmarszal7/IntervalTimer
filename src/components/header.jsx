@@ -5,10 +5,10 @@ import { withRouter } from 'react-router';
 
 const Header = () => (
     <header>
-        <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-            <span className="navbar-brand">React Sample</span>
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark" stylename="-webkit-app-region: drag">
+            <span className="navbar-brand">Interval Timer</span>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"/>
+                <span className="navbar-toggler-icon" />
             </button>
             <div className="collapse navbar-collapse" id="navbarCollapse">
                 <ul className="navbar-nav mr-auto">

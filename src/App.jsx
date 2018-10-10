@@ -10,13 +10,13 @@ export default class App extends Component {
         return (
             <Router>
                 <React.Fragment>
-                    <Header />
+                    <Header style="-webkit-app-region: drag" />
                     <main role="main" className="container mt-3">
                         <Route exact={true} path="/" component={() => <Redirect to="/timer" />} />
                         <Route path="/counter" component={Counters} />
                         <Route path="/timer" component={Timer} />
                         <Route path="/placeholder" component={Placeholder} />
-						<Route component={() => <Redirect to="/timer" />} />
+                        <Route component={() => <Redirect to="/timer" />} />
                     </main>
                 </React.Fragment>
             </Router>
