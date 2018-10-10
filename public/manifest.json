@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "React App Sample",
+  "short_name": "Interval Timer",
+  "name": "Interval Timer",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
