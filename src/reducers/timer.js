@@ -1,23 +1,23 @@
 import { ActionTypes } from '../actions/timer';
+import { beep } from '../utils/beep';
 
 const initialState = {
     duration: 0,
-    workTime: 0,
-    intervalTime: 0,
+    timerSetup: null,
     isInterval: false,
+    timerPaused: true,
+    cycle: 0
 }
-
-const audioContext = new AudioContext() // browsers limit the number of concurrent audio contexts, so you better re-use'em
 
 export const timerReducer = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.START_TIMER:
             return {
                 ...state,
-                duration: action.workTime,
-                workTime: action.workTime,
-                intervalTime: action.intervalTime,
+                duration: action.timerSetup.workTime,
+                timerSetup: action.timerSetup,
                 isInterval: false,
+                timerPaused: false,
             }
 
         case ActionTypes.STOP_TIMER:
@@ -25,32 +25,38 @@ export const timerReducer = (state = initialState, action) => {
                 ...initialState,
             }
 
-        case ActionTypes.TIMER_TICK:
-            if (state.duration <= 0) {
-                // const audio = new Audio('beep.mp3');
-                // audio.play();
-                beep(10, 2000, 500)
-                navigator.vibrate(200);
-            }
+        case ActionTypes.PAUSE_TIMER:
             return {
                 ...state,
-                isInterval: state.duration <= 0 ? !state.isInterval : state.isInterval,
-                duration: state.duration <= 0 ? (state.isInterval ? state.workTime : state.intervalTime) : state.duration - 1,
+                timerPaused: !state.timerPaused,
+            }
+
+        case ActionTypes.TIMER_TICK:
+            if (state.timerPaused) {
+                return {
+                    ...state
+                };
+            }
+
+            if (state.duration <= 0) {
+                beep(10, 2000, 500)
+                navigator.vibrate(200);
+
+                return {
+                    ...state,
+                    duration: state.isInterval ? state.timerSetup.workTime : state.timerSetup.intervalTime,
+                    isInterval: !state.isInterval,
+                    cycle: state.isInterval ? state.cycle + 1 : state.cycle,
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    duration: state.duration - 1,
+                }
             }
 
         default:
             return state
     }
-}
-
-function beep(vol, freq, duration) {
-    const v = audioContext.createOscillator()
-    const u = audioContext.createGain()
-    v.connect(u)
-    v.frequency.value = freq
-    v.type = "square"
-    u.connect(audioContext.destination)
-    u.gain.value = vol * 0.01
-    v.start(audioContext.currentTime)
-    v.stop(audioContext.currentTime + duration * 0.001)
 }
