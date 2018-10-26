@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import { ActionTypes } from '../actions/timer';
 import { beep } from '../utils/beep';
 
@@ -60,3 +61,7 @@ export const timerReducer = (state = initialState, action) => {
             return state
     }
 }
+
+export default combineReducers({
+    timer: timerReducer,
+});

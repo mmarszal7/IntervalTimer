@@ -6,7 +6,7 @@ import App from './App';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk';
-import rootReducer from './reducers';
+import rootReducer from './reducers/timer';
 import * as serviceWorker from "./serviceWorker";
 
 const initialState = {};
@@ -17,7 +17,7 @@ const store = createStore(
     initialState,
     compose(
         applyMiddleware(...middleware),
-		// unload for production build
+        // unload for production build
         // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
